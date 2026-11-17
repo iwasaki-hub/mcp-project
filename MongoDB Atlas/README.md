@@ -28,7 +28,8 @@ ChatGPTからMCP経由でMongoDB Atlasと通信し、利用可能な操作、実
 - 2026-11-18: **無料クラスター作成 成功** — `mcp-sandbox/Cluster0` をAWS東京（`AP_NORTHEAST_1`）に作成。`FREE` / `IDLE` を一覧で確認。成功時の事前状態・指定引数・検証方法・未確認の一般要件を `WORKLOG.md` と `CAPABILITIES.md` に記録。
 - 2026-11-18: **DB・コレクション作成 成功** — `mcp-sandbox/Cluster0` にMCP接続し、`mcp_test_db/test_entries` を作成。作成後一覧で存在を確認。DBユーザーとIPアクセスリストは事後確認で各0件。
 - 2026-11-18: **DBユーザー作成 成功** — `mcp-sandbox` に `mcp_test_user` を作成。`Cluster0` にスコープを限定し、`mcp_test_db` に `readWrite` 権限を付与。事後一覧で確認。パスワードは記録しない。
-- ドキュメント取得・書き込み・削除、MCP実効権限の詳細確認は未検証。
+- 2026-11-18: **CRUD検証 成功** — `mcp_test_db.test_entries` にテスト1件を追加・取得・更新・削除し、削除後0件を確認。専用テスト識別子で対象を限定。
+- MCP実効権限の詳細確認（作成済みDBユーザー自身での認証を含む）は未検証。
 
 ## 管理ファイル
 
