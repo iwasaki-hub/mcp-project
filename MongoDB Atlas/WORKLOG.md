@@ -1,5 +1,16 @@
 # MongoDB Atlas 作業履歴
 
+## 2026-11-18 — sandbox DBユーザー作成と権限確認
+
+- **対象**: `mcp-sandbox`（projectId=`6afccfe99a4b814c5a91c00d`）、`Cluster0`、DB=`mcp_test_db`。
+- **承認設定**: username=`mcp_test_user`、role=`readWrite`、databaseName=`mcp_test_db`、cluster scope=`Cluster0`、パスワードはMCP側で自動生成。
+- **事前確認**: `atlas_list_db_users` でDBユーザー0件を確認。
+- **作成**: `atlas_create_db_user` に projectId、username、clusters=[`Cluster0`]、roles=[{roleName:`readWrite`, databaseName:`mcp_test_db`}] を指定。password引数は省略。ユーザー名と生成パスワードの存在を応答で確認。
+- **事後確認**: `atlas_list_db_users` で1件。`mcp_test_user`、`readWrite` on `mcp_test_db`、scope=`CLUSTER:Cluster0` を確認。
+- **変更範囲**: 新規DBユーザー1件。既存 `mcp-ai-practice` への変更操作なし。
+- **セキュリティ**: パスワード値、接続文字列、認証トークンは記録しない。生成パスワードを安全に保管できていることは未確認。実際の当該ユーザー認証でのログイン・読み書きは未検証。必要ならAtlas上でパスワードを安全に再設定する。
+
+
 ## 2026-11-18 — `mcp-sandbox` にデータベース・コレクションを作成
 
 - **承認範囲**: ユーザーが `mcp_test_db` と `test_entries` の作成および `remote_atlas_connect` に伴う変更可能性を了承。
