@@ -1,5 +1,14 @@
 # MongoDB Atlas 作業履歴
 
+## 2026-11-18 — sandbox DBユーザー権限テスト（設定確認のみ）
+
+- **対象**: `mcp-sandbox` の `mcp_test_user`。
+- **確認**: `atlas_list_db_users` によりユーザー1件、role=`readWrite`、databaseName=`mcp_test_db`、scope=`CLUSTER:Cluster0` を確認。付与ロール一覧に管理者ロールなし。
+- **実ログインテスト**: 未実施。利用可能な `remote_atlas_connect` はprojectIdとclusterNameのみ受け取り、ユーザー名・パスワードを指定できない。生成済みパスワードはこの作業で取得・表示していない。
+- **未検証**: `mcp_test_user` としての認証、対象DBの読み書き成功、他DBのアクセス拒否。設定値の確認を実効権限の実証と混同しない。
+- **変更**: Atlas側への書き込みなし。秘密情報は記録しない。
+
+
 ## 2026-11-18 — sandboxコレクションCRUD検証（作成・読取・更新・削除）
 
 - **対象**: `mcp-sandbox/Cluster0`、`mcp_test_db.test_entries`。ユーザー承認に基づくテストデータ操作。
