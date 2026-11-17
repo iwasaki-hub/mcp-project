@@ -25,6 +25,7 @@ ChatGPTからMCP経由でMongoDB Atlasと通信し、利用可能な操作、実
 - 2026-11-18: **Phase 3 安全性確認待ち** — `remote_atlas_connect` の接続時副作用がないと確認できないため未実行。DB・コレクション一覧は未取得。Atlas側の変更なし。
 - 2026-11-18: **Phase 3追加安全性調査** — IPアクセスリスト4件、DBユーザー5件を読み取り専用で確認。接続方式の副作用は未確定のため `remote_atlas_connect` は実行せず。
 - 2026-11-18: **MCPプロジェクト作成 成功** — `atlas_create_project` で `mcp-sandbox`（ID `6afccfe99a4b814c5a91c00d`）を既存と同じOrganizationに作成し、一覧再取得で確認。クラスター作成なし。
+- 2026-11-18: **無料クラスター作成 成功** — `mcp-sandbox/Cluster0` をAWS東京（`AP_NORTHEAST_1`）に作成。`FREE` / `IDLE` を一覧で確認。
 - データベース内部への接続、ドキュメント取得、書き込み、削除、MCP実効権限の詳細確認は未検証。
 
 ## 管理ファイル
