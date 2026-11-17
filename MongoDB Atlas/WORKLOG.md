@@ -1,5 +1,16 @@
 # MongoDB Atlas 作業履歴
 
+## 2026-11-18 — `mcp-sandbox` にデータベース・コレクションを作成
+
+- **承認範囲**: ユーザーが `mcp_test_db` と `test_entries` の作成および `remote_atlas_connect` に伴う変更可能性を了承。
+- **対象**: `mcp-sandbox`（projectId=`6afccfe99a4b814c5a91c00d`）/ `Cluster0`（FREE、AWS東京）。
+- **実行手順**: (1) `remote_atlas_connect` 成功 (2) `list_databases` で `admin`・`local` の2件を確認（目的DBなし）(3) `create_collection`（database=`mcp_test_db`、collection=`test_entries`）が `created=true` (4) `list_databases` で `mcp_test_db` を含む3件、`list_collections` で `test_entries` 1件を確認。
+- **作成条件（実測）**: プロジェクトとFREEクラスターが存在し、リモート接続が成功した。目的DBは事前一覧に存在せず、`create_collection` によってDBも自動作成された。
+- **事後セキュリティ確認**: `atlas_list_db_users` は0件、`atlas_inspect_access_list` は0件。事前のユーザー・アクセスリスト件数は取得していないため、接続時の一時的な作成・削除や内部動作は断定できない。
+- **変更範囲**: `mcp_test_db/test_entries` を新規作成。ドキュメント挿入なし。既存 `mcp-ai-practice` への変更操作なし。
+- **制約**: MCPの接続モデル・実効権限は未確認。今回の接続成功を他プロジェクトの無副作用保証と解釈しない。接続ハンドル・認証情報・接続文字列は記録しない。
+
+
 ## 2026-11-18 — `mcp-sandbox` に無料クラスターを作成
 
 - **目的**: MCP機能検証用の無料クラスターを新規プロジェクト内に用意する。
