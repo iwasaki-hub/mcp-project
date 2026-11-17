@@ -7,6 +7,7 @@
 | データ操作 | sandbox CRUD（Create/Read/Update/Delete） | 成功 | テスト1件の追加・取得・更新・削除、最終count=0 |
 | セキュリティ | sandbox DBユーザー権限設定の再確認 | 成功 | `mcp_test_user` に `readWrite` on `mcp_test_db`、`Cluster0` スコープ |
 | セキュリティ | DBユーザー実認証・他DB拒否テスト | 未検証 | MCP接続ツールはDBユーザー資格情報を受け付けない |
+| 管理 | sandbox IPアクセスリスト作成 | 成功 | `atlas_create_access_list` で一時的に全IPv4 `0.0.0.0/0` を許可。早期制限・削除が必要 |
 | 管理 | sandbox DBユーザー作成 | 成功 | `atlas_create_db_user`: `mcp_test_user`、`mcp_test_db` の `readWrite`、`Cluster0` 限定 |
 | 接続 | リモートAtlas DB接続 | 成功 | `remote_atlas_connect`: `mcp-sandbox/Cluster0`。接続時の内部副作用は未確定 |
 | 参照 | DB・コレクション一覧（sandbox） | 成功 | `list_databases` / `list_collections` で作成後の存在を確認 |
@@ -26,6 +27,13 @@
 | 書き込み | sandboxテストデータの追加・更新 | 成功 | `insert_many` / `update_many` 各1件 |
 | 削除 | sandboxテストデータの削除 | 成功 | `delete_many` で1件、`count` で0件を確認 |
 | 自動化 | 定期的な状態確認 | 未検証 | 実行方法を別途設計 |
+
+## sandbox IPアクセスリスト作成（2026-11-18）
+
+- **事前状態**: `atlas_inspect_access_list` で0件。
+- **作成**: `atlas_create_access_list`、CIDR=`0.0.0.0/0`、コメント=`Temporary MCP sandbox test - restrict ASAP`。
+- **事後検証**: 一覧1件、全IPv4許可エントリを確認。
+- **セキュリティ**: ユーザー明示承認による一時検証設定。DB認証は必要だがネットワーク制限が緩くなる。期限付き設定ではなく、自動削除は行われない。検証後に制限・削除が必要。
 
 ## sandbox CRUD検証（2026-11-18）
 
