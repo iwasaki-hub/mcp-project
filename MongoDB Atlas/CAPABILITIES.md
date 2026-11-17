@@ -5,6 +5,8 @@
 | 分野 | 検証項目 | 状態 | 備考 |
 | --- | --- | --- | --- |
 | データ操作 | sandbox CRUD（Create/Read/Update/Delete） | 成功 | テスト1件の追加・取得・更新・削除、最終count=0 |
+| セキュリティ | sandbox DBユーザー権限設定の再確認 | 成功 | `mcp_test_user` に `readWrite` on `mcp_test_db`、`Cluster0` スコープ |
+| セキュリティ | DBユーザー実認証・他DB拒否テスト | 未検証 | MCP接続ツールはDBユーザー資格情報を受け付けない |
 | 管理 | sandbox DBユーザー作成 | 成功 | `atlas_create_db_user`: `mcp_test_user`、`mcp_test_db` の `readWrite`、`Cluster0` 限定 |
 | 接続 | リモートAtlas DB接続 | 成功 | `remote_atlas_connect`: `mcp-sandbox/Cluster0`。接続時の内部副作用は未確定 |
 | 参照 | DB・コレクション一覧（sandbox） | 成功 | `list_databases` / `list_collections` で作成後の存在を確認 |
