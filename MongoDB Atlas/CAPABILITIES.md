@@ -7,6 +7,9 @@
 | 接続 | プロジェクト一覧取得 | 成功 | `atlas_list_projects`: `mcp-ai-practice`（1件） |
 | 接続 | クラスター一覧取得 | 成功 | `atlas_list_clusters`: `Cluster0`（1件） |
 | 接続 | クラスター詳細取得 | 成功 | `atlas_inspect_cluster`: FREE / AWS東京 / 8.0.37 / IDLE |
+| 管理 | IPアクセスリスト取得 | 成功 | `atlas_inspect_access_list`: 4件。値は非公開 |
+| 管理 | DBユーザー一覧取得 | 成功 | `atlas_list_db_users`: 5件。名前は非公開 |
+| 接続 | MCPアクセスモデル・read-only設定の確認 | 未確認 | 接続構成は取得できていない |
 | 参照 | データベース・コレクション一覧 | 安全性確認待ち | `remote_atlas_connect` 未実行。接続時の副作用を確認後に再開 |
 | 参照 | ドキュメント取得 | 未検証 | 機密情報の記録を避ける |
 | 検索 | 条件検索・集計 | 未検証 | 読み取り専用 |
@@ -14,6 +17,15 @@
 | 書き込み | テストデータの追加・更新 | 未検証 | 事前承認が必要 |
 | 削除 | テストデータの削除 | 未検証 | 事前承認が必要 |
 | 自動化 | 定期的な状態確認 | 未検証 | 実行方法を別途設計 |
+
+## Phase 3 — 接続方式と権限の追加調査（2026-11-18）
+
+- **使用ツール**: `atlas_inspect_access_list`（成功: 4件）、`atlas_list_db_users`（成功: 5件）
+- **既存DBユーザーロール**: `read`、`readAnyDatabase`、`readWrite` を確認。現在のMCP実効権限とは限らない。
+- **IPアクセスリスト**: 自動セットアップ由来および `render` コメントを確認。アドレスは非公開。
+- **公式資料**: https://www.mongodb.com/docs/mcp-server/tools/ 、https://www.mongodb.com/docs/mcp-server/remote-mcp/access-models/
+- **判断**: `remote_atlas_connect` の一時ユーザー作成やアクセスリスト変更が起きないことを確認できず、未実行。DB/コレクション一覧は未取得。
+- **Atlas側への変更**: なし。
 
 ## Phase 3 — 事前安全性確認（2026-11-18）
 
