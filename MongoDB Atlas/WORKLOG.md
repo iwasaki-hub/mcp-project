@@ -1,5 +1,15 @@
 # MongoDB Atlas 作業履歴
 
+## 2026-11-18 — 新規Atlasプロジェクト `mcp-sandbox` 作成
+
+- **目的**: MCP機能検証用の独立したAtlasプロジェクトを用意する。
+- **事前確認**: `atlas_list_projects` で既存 `mcp-ai-practice`（orgId=`630f2ac45d0b0a7f17a95c3e`）と同名プロジェクト不在を確認。
+- **作成**: `atlas_create_project`（projectName=`mcp-sandbox`、orgId=`630f2ac45d0b0a7f17a95c3e`）成功。
+- **検証**: `atlas_list_projects` を再実行し、`mcp-sandbox`（projectId=`6afccfe99a4b814c5a91c00d`）と既存 `mcp-ai-practice` の計2件を確認。
+- **変更範囲**: 新規Atlasプロジェクト1件の作成のみ。既存プロジェクトやクラスター設定の変更操作なし。新規クラスター・DBは作成していない。
+- **注意**: この作成はユーザー承認に基づく意図的なAtlas管理リソース変更。Phase 3の接続安全性確認とは別作業。
+
+
 ## 2026-11-18 — Phase 3追加調査: MCP接続方式と権限の読み取り専用確認
 
 - **対象**: `mcp-ai-practice / Cluster0`（projectId=`6afa9d0143de8864a5e25613`）
