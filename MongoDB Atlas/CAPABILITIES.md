@@ -4,6 +4,7 @@
 
 | 分野 | 検証項目 | 状態 | 備考 |
 | --- | --- | --- | --- |
+| データ操作 | sandbox CRUD（Create/Read/Update/Delete） | 成功 | テスト1件の追加・取得・更新・削除、最終count=0 |
 | 管理 | sandbox DBユーザー作成 | 成功 | `atlas_create_db_user`: `mcp_test_user`、`mcp_test_db` の `readWrite`、`Cluster0` 限定 |
 | 接続 | リモートAtlas DB接続 | 成功 | `remote_atlas_connect`: `mcp-sandbox/Cluster0`。接続時の内部副作用は未確定 |
 | 参照 | DB・コレクション一覧（sandbox） | 成功 | `list_databases` / `list_collections` で作成後の存在を確認 |
@@ -17,12 +18,21 @@
 | 管理 | DBユーザー一覧取得 | 成功 | `atlas_list_db_users`: 5件。名前は非公開 |
 | 接続 | MCPアクセスモデル・read-only設定の確認 | 未確認 | 接続構成は取得できていない |
 | 参照 | 既存 `mcp-ai-practice` のDB・コレクション一覧 | 安全性確認待ち | 既存環境への接続は未実行。sandbox接続の成功とは区別 |
-| 参照 | ドキュメント取得 | 未検証 | 機密情報の記録を避ける |
+| 参照 | sandboxテストドキュメント取得 | 成功 | `find` で1件取得、更新後も再取得 |
 | 検索 | 条件検索・集計 | 未検証 | 読み取り専用 |
 | 管理 | アラート・パフォーマンス確認 | 未検証 | 利用可能な権限を確認 |
-| 書き込み | テストデータの追加・更新 | 未検証 | 事前承認が必要 |
-| 削除 | テストデータの削除 | 未検証 | 事前承認が必要 |
+| 書き込み | sandboxテストデータの追加・更新 | 成功 | `insert_many` / `update_many` 各1件 |
+| 削除 | sandboxテストデータの削除 | 成功 | `delete_many` で1件、`count` で0件を確認 |
 | 自動化 | 定期的な状態確認 | 未検証 | 実行方法を別途設計 |
+
+## sandbox CRUD検証（2026-11-18）
+
+- **対象**: `mcp_test_db.test_entries`。テスト識別子=`mcp-crud-20261118-0813`。
+- **Create**: `insert_many` insertedCount=1、初期message=`created`。
+- **Read**: `find` で1件取得。
+- **Update**: `update_many` matchedCount=1、modifiedCount=1、upsertedCount=0。message=`updated` を再取得で確認。
+- **Delete**: `delete_many` deletedCount=1。`count`（テスト識別子）=0。
+- **安全性**: テストデータだけを対象に限定。実DBユーザー `mcp_test_user` での認証・権限境界は未検証。
 
 ## sandbox DBユーザー作成（2026-11-18）
 
