@@ -4,6 +4,7 @@
 
 | 分野 | 検証項目 | 状態 | 備考 |
 | --- | --- | --- | --- |
+| 管理 | 無料クラスター作成 | 成功 | `atlas_create_free_cluster`: `mcp-sandbox/Cluster0`（AWS東京、FREE、IDLE） |
 | 管理 | 新規Atlasプロジェクト作成 | 成功 | `atlas_create_project`: `mcp-sandbox`（2026-11-18）、一覧再取得で確認 |
 | 接続 | プロジェクト一覧取得 | 成功 | `atlas_list_projects`: `mcp-ai-practice`（1件） |
 | 接続 | クラスター一覧取得 | 成功 | `atlas_list_clusters`: `Cluster0`（1件） |
@@ -18,6 +19,14 @@
 | 書き込み | テストデータの追加・更新 | 未検証 | 事前承認が必要 |
 | 削除 | テストデータの削除 | 未検証 | 事前承認が必要 |
 | 自動化 | 定期的な状態確認 | 未検証 | 実行方法を別途設計 |
+
+## 無料クラスター作成（2026-11-18）
+
+- **MCPツール**: `atlas_list_clusters`（事前・事後）、`atlas_create_free_cluster`（作成）
+- **対象**: `mcp-sandbox`（projectId=`6afccfe99a4b814c5a91c00d`）/ `Cluster0`
+- **結果**: `created=true`。事後一覧で1件、instanceType=`FREE`、provider=`AWS`、region=`AP_NORTHEAST_1`、state=`IDLE`、paused=`false`。
+- **Atlas側への変更**: 無料クラスター1件の作成のみ。既存プロジェクトの変更操作なし。
+- **未検証**: DB接続、コレクション・ドキュメント参照。
 
 ## 新規Atlasプロジェクト作成（2026-11-18）
 
