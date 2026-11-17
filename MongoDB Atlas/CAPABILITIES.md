@@ -4,6 +4,7 @@
 
 | 分野 | 検証項目 | 状態 | 備考 |
 | --- | --- | --- | --- |
+| 管理 | 新規Atlasプロジェクト作成 | 成功 | `atlas_create_project`: `mcp-sandbox`（2026-11-18）、一覧再取得で確認 |
 | 接続 | プロジェクト一覧取得 | 成功 | `atlas_list_projects`: `mcp-ai-practice`（1件） |
 | 接続 | クラスター一覧取得 | 成功 | `atlas_list_clusters`: `Cluster0`（1件） |
 | 接続 | クラスター詳細取得 | 成功 | `atlas_inspect_cluster`: FREE / AWS東京 / 8.0.37 / IDLE |
@@ -17,6 +18,13 @@
 | 書き込み | テストデータの追加・更新 | 未検証 | 事前承認が必要 |
 | 削除 | テストデータの削除 | 未検証 | 事前承認が必要 |
 | 自動化 | 定期的な状態確認 | 未検証 | 実行方法を別途設計 |
+
+## 新規Atlasプロジェクト作成（2026-11-18）
+
+- **MCPツール**: `atlas_create_project`
+- **対象**: `mcp-sandbox`（projectId=`6afccfe99a4b814c5a91c00d`、orgId=`630f2ac45d0b0a7f17a95c3e`）
+- **結果**: 成功。`atlas_list_projects` で既存プロジェクトと合わせて2件を確認。
+- **Atlas側への変更**: 新規プロジェクト1件の作成。クラスターやデータベースの作成なし。
 
 ## Phase 3 — 接続方式と権限の追加調査（2026-11-18）
 
