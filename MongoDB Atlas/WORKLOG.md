@@ -1,5 +1,15 @@
 # MongoDB Atlas 作業履歴
 
+## 2026-11-18 — `mcp-sandbox` に無料クラスターを作成
+
+- **目的**: MCP機能検証用の無料クラスターを新規プロジェクト内に用意する。
+- **事前確認**: `atlas_list_clusters`（projectId=`6afccfe99a4b814c5a91c00d`）でクラスター0件を確認。
+- **作成**: `atlas_create_free_cluster`（projectId=`6afccfe99a4b814c5a91c00d`、name=`Cluster0`、region=`AP_NORTHEAST_1`）を実行し `created=true` を取得。
+- **事後検証**: `atlas_list_clusters` で1件を確認。`Cluster0`、instanceType=`FREE`、provider=`AWS`、region=`AP_NORTHEAST_1`、state=`IDLE`、paused=`false`。
+- **変更範囲**: `mcp-sandbox` に無料クラスター1件を作成。既存 `mcp-ai-practice` に変更操作なし。DBユーザー・アクセスリスト・データの作成操作なし。
+- **注意**: DB内部への接続とデータ参照は未検証。`remote_atlas_connect` の副作用確認待ちは継続。
+
+
 ## 2026-11-18 — 新規Atlasプロジェクト `mcp-sandbox` 作成
 
 - **目的**: MCP機能検証用の独立したAtlasプロジェクトを用意する。
