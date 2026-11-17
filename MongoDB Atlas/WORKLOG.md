@@ -1,5 +1,18 @@
 # MongoDB Atlas 作業履歴
 
+## 2026-11-18 — Phase 3追加調査: MCP接続方式と権限の読み取り専用確認
+
+- **対象**: `mcp-ai-practice / Cluster0`（projectId=`6afa9d0143de8864a5e25613`）
+- **実行した読み取りツール**: `atlas_inspect_access_list`, `atlas_list_db_users`
+- **取得結果**: IPアクセスリスト4件、DBユーザー5件。ユーザーのロールには `read`、`readAnyDatabase`、`readWrite` が存在。IPアクセスリストには `Created as part of the Auto Setup process` と `render` のコメントがある。ユーザー名とIP/CIDRは記録しない。
+- **公式仕様**: ローカル `atlas-connect-cluster` は接続文字列が未設定の場合に一時DBユーザーを作成する。リモート `remote-atlas-connect` は別の接続・セッションモデルで、接続先の権限はユーザー委任またはMCP構成のロールに依存する。
+- **未確認**: 現在のMCPがどちらのアクセスモデルか、接続時のDBユーザー/アクセスリストの自動作成の有無、MCP実効権限とread-only設定。既存DBユーザーのロールだけではMCP実効権限は判定できない。
+- **判断**: `remote_atlas_connect` は実行しない。DB・コレクション一覧取得は安全性確認待ちのまま。
+- **Atlas側への変更**: なし（読み取りツールのみ実行）。
+- **参考**: https://www.mongodb.com/docs/mcp-server/tools/ ; https://www.mongodb.com/docs/mcp-server/remote-mcp/access-models/ ; https://www.mongodb.com/docs/mcp-server/prerequisites/
+- **次の作業**: MCP接続構成のアクセスモデルとread-only設定を管理画面等で確認し、接続時の副作用がないと確認できた後にPhase 3を再開する。
+
+
 ## 2026-11-18 — Phase 3: DB・コレクション一覧取得前の副作用確認
 
 - **目的**: `mcp-ai-practice / Cluster0` のデータベース・コレクション一覧をAtlas側の変更なしで取得する。
