@@ -9,6 +9,16 @@
 - **変更範囲**: `mcp-sandbox` に無料クラスター1件を作成。既存 `mcp-ai-practice` に変更操作なし。DBユーザー・アクセスリスト・データの作成操作なし。
 - **注意**: DB内部への接続とデータ参照は未検証。`remote_atlas_connect` の副作用確認待ちは継続。
 
+### 作成に成功した際の条件（実測と未確認を区別）
+
+- **事前状態（実測）**: `mcp-sandbox` プロジェクトが作成済み（projectId=`6afccfe99a4b814c5a91c00d`）、同プロジェクトのクラスター数は0件。既存の別プロジェクト `mcp-ai-practice` には `Cluster0` が存在していた。
+- **実行環境（実測）**: ChatGPTから接続済みMongoDB Atlas MCPの `atlas_create_free_cluster` を使用。Atlas管理APIへの認証は成功したが、MCPアカウントの正確なAtlasロール・認証モデルは未確認。
+- **指定したパラメータ（実測）**: `projectId=6afccfe99a4b814c5a91c00d`, `name=Cluster0`, `region=AP_NORTHEAST_1`。ツールは無料クラスター専用で、有料専用クラスター用の `atlas_create_cluster` は使用していない。
+- **応答と検証（実測）**: 作成API応答 `created=true`。続く `atlas_list_clusters` は1件を返し、`FREE`、`AWS`、`AP_NORTHEAST_1`、`IDLE`、`paused=false` を確認。
+- **成立した条件と一般要件の区別**: この構成・権限下で1回作成できたことを確認した。プロジェクト内クラスター0件が必須条件であること、別プロジェクトに無料クラスターがある場合の一般的な上限、無料枠の課金条件、すべてのリージョンでの可否は検証していない。
+- **未確認事項**: 実際に付与された管理ロール、組織のクラスター作成制限、請求設定、ネットワークアクセス/DBユーザーの要否。作成時にそれらを変更する操作は実行していない。
+- **再現手順**: (1) 対象projectIdを確認 (2) `atlas_list_clusters` で重複や既存クラスターを確認 (3) 無料作成ツールを明示的に選択 (4) `atlas_create_free_cluster` を実行 (5) `atlas_list_clusters` でFREE・リージョン・状態を検証。
+
 
 ## 2026-11-18 — 新規Atlasプロジェクト `mcp-sandbox` 作成
 
