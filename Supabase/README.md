@@ -5,7 +5,8 @@
 ## 状態
 
 - フォルダ作成済み
-- Supabaseへの接続・操作は未実施
+- **Phase 1 成功（2026-11-18）**: Supabase MCPで組織一覧（1件）、プロジェクト一覧（2件）を読み取り専用で取得。`LittleDiary`（INACTIVE）と`typing-app`（ACTIVE_HEALTHY）を確認。DB操作・設定変更なし。
+- 次フェーズ: 既存プロジェクトの安全なメタデータ参照。変更系は検証用sandboxを用意してから実施。
 
 ## 方針
 
