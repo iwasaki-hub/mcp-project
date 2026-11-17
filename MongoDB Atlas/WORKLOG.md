@@ -1,5 +1,18 @@
 # MongoDB Atlas 作業履歴
 
+## 2026-11-18 — sandboxコレクションCRUD検証（作成・読取・更新・削除）
+
+- **対象**: `mcp-sandbox/Cluster0`、`mcp_test_db.test_entries`。ユーザー承認に基づくテストデータ操作。
+- **接続**: `remote_atlas_connect` に成功。接続ハンドルや秘密情報は記録しない。
+- **識別条件**: `testRunId=mcp-crud-20261118-0813`、`type=mcp_crud_test`。他データへの影響を避けるため対象を限定。
+- **Create**: `insert_many` で `{testRunId, type, message:'created', step:1}` を1件追加（insertedCount=1）。
+- **Read**: `find` で1件を取得し初期値を確認。
+- **Update**: `update_many` に限定フィルター、`$set` で `message='updated'`、`step=2`、`upsert=false`。matchedCount=1、modifiedCount=1、upsertedCount=0。`find` で更新値を確認。
+- **Delete**: `delete_many` にテスト識別子・type・更新後messageを指定し、deletedCount=1。
+- **最終確認**: `count`（テスト識別子で絞り込み）=0。今回のテストドキュメントは残っていない。
+- **制約**: MCP接続でのCRUD成功であり、新規作成した `mcp_test_user` のパスワード認証・権限境界を直接検証したものではない。既存 `mcp-ai-practice` への変更操作なし。
+
+
 ## 2026-11-18 — sandbox DBユーザー作成と権限確認
 
 - **対象**: `mcp-sandbox`（projectId=`6afccfe99a4b814c5a91c00d`）、`Cluster0`、DB=`mcp_test_db`。
