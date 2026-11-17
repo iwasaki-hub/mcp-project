@@ -4,6 +4,9 @@
 
 | 分野 | 検証項目 | 状態 | 備考 |
 | --- | --- | --- | --- |
+| 接続 | リモートAtlas DB接続 | 成功 | `remote_atlas_connect`: `mcp-sandbox/Cluster0`。接続時の内部副作用は未確定 |
+| 参照 | DB・コレクション一覧（sandbox） | 成功 | `list_databases` / `list_collections` で作成後の存在を確認 |
+| 書き込み | DB・コレクション作成（sandbox） | 成功 | `create_collection`: `mcp_test_db/test_entries`、`created=true` |
 | 管理 | 無料クラスター作成 | 成功 | `atlas_create_free_cluster`: `mcp-sandbox/Cluster0`（AWS東京、FREE、IDLE） |
 | 管理 | 新規Atlasプロジェクト作成 | 成功 | `atlas_create_project`: `mcp-sandbox`（2026-11-18）、一覧再取得で確認 |
 | 接続 | プロジェクト一覧取得 | 成功 | `atlas_list_projects`: `mcp-ai-practice`（1件） |
@@ -12,13 +15,22 @@
 | 管理 | IPアクセスリスト取得 | 成功 | `atlas_inspect_access_list`: 4件。値は非公開 |
 | 管理 | DBユーザー一覧取得 | 成功 | `atlas_list_db_users`: 5件。名前は非公開 |
 | 接続 | MCPアクセスモデル・read-only設定の確認 | 未確認 | 接続構成は取得できていない |
-| 参照 | データベース・コレクション一覧 | 安全性確認待ち | `remote_atlas_connect` 未実行。接続時の副作用を確認後に再開 |
+| 参照 | 既存 `mcp-ai-practice` のDB・コレクション一覧 | 安全性確認待ち | 既存環境への接続は未実行。sandbox接続の成功とは区別 |
 | 参照 | ドキュメント取得 | 未検証 | 機密情報の記録を避ける |
 | 検索 | 条件検索・集計 | 未検証 | 読み取り専用 |
 | 管理 | アラート・パフォーマンス確認 | 未検証 | 利用可能な権限を確認 |
 | 書き込み | テストデータの追加・更新 | 未検証 | 事前承認が必要 |
 | 削除 | テストデータの削除 | 未検証 | 事前承認が必要 |
 | 自動化 | 定期的な状態確認 | 未検証 | 実行方法を別途設計 |
+
+## sandbox DB・コレクション作成（2026-11-18）
+
+- **MCPツール**: `remote_atlas_connect`, `list_databases`, `create_collection`, `list_collections`。
+- **対象**: `mcp-sandbox/Cluster0`、DB=`mcp_test_db`、collection=`test_entries`。
+- **事前条件（実測）**: FREEクラスターが存在し、リモート接続成功。接続後のDB一覧は `admin` と `local` の2件。
+- **作成**: `create_collection` が `created=true`。DBはコレクション作成時に自動生成。
+- **事後検証**: DB一覧に `mcp_test_db`、コレクション一覧に `test_entries`。DBユーザー0件、IPアクセスリスト0件（事後値のみ）。
+- **注意**: 接続時の一時的な変更有無、MCP実効ロール、他環境での動作は未確認。ドキュメントは未挿入。
 
 ## 無料クラスター作成（2026-11-18）
 
