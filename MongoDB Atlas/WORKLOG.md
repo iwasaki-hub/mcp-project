@@ -1,5 +1,15 @@
 # MongoDB Atlas 作業履歴
 
+## 2026-11-18 — Phase 3: DB・コレクション一覧取得前の副作用確認
+
+- **目的**: `mcp-ai-practice / Cluster0` のデータベース・コレクション一覧をAtlas側の変更なしで取得する。
+- **確認したツール**: `remote_atlas_connect`（接続）、`list_databases`（一覧）、`list_collections`（一覧）。
+- **公式資料**: https://www.mongodb.com/docs/mcp-server/tools/ — ローカル `atlas-connect-cluster` は設定によって一時DBユーザーを作成する。リモート `remote-atlas-connect` は別の接続・セッション方式だが、現在の接続構成で副作用がないことを断定できない。
+- **判定**: 安全性確認待ち。`remote_atlas_connect` を実行せず、`list_databases` と `list_collections` も未実行。データベース名・コレクション名は未取得。
+- **Atlas側への変更**: なし。ユーザー作成、アクセスリスト変更、設定変更なし。
+- **次の作業**: 接続方式・権限・ユーザー作成の有無を確認し、変更不要と確認できた場合のみ一覧取得を再開する。
+
+
 ## 2026-11-18 — Phase 2: Cluster0詳細情報の読み取り専用検証
 
 - **目的**: `mcp-ai-practice` の `Cluster0` のメタデータをMCPで取得する。
