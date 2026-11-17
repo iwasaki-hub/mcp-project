@@ -4,6 +4,7 @@
 
 | 分野 | 検証項目 | 状態 | 備考 |
 | --- | --- | --- | --- |
+| 管理 | sandbox DBユーザー作成 | 成功 | `atlas_create_db_user`: `mcp_test_user`、`mcp_test_db` の `readWrite`、`Cluster0` 限定 |
 | 接続 | リモートAtlas DB接続 | 成功 | `remote_atlas_connect`: `mcp-sandbox/Cluster0`。接続時の内部副作用は未確定 |
 | 参照 | DB・コレクション一覧（sandbox） | 成功 | `list_databases` / `list_collections` で作成後の存在を確認 |
 | 書き込み | DB・コレクション作成（sandbox） | 成功 | `create_collection`: `mcp_test_db/test_entries`、`created=true` |
@@ -22,6 +23,14 @@
 | 書き込み | テストデータの追加・更新 | 未検証 | 事前承認が必要 |
 | 削除 | テストデータの削除 | 未検証 | 事前承認が必要 |
 | 自動化 | 定期的な状態確認 | 未検証 | 実行方法を別途設計 |
+
+## sandbox DBユーザー作成（2026-11-18）
+
+- **ツール**: `atlas_list_db_users`（前後）、`atlas_create_db_user`。
+- **事前状態**: DBユーザー0件。
+- **作成引数**: projectId=`6afccfe99a4b814c5a91c00d`、username=`mcp_test_user`、clusters=[`Cluster0`]、roles=[`readWrite` on `mcp_test_db`]、password省略（MCP自動生成）。
+- **結果**: 作成応答にusernameと生成パスワードあり。事後一覧でユーザー1件、権限とスコープ一致を確認。
+- **未検証**: 実ユーザー認証での接続と権限行使。パスワードは記録しない。
 
 ## sandbox DB・コレクション作成（2026-11-18）
 
