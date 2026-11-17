@@ -26,6 +26,10 @@
 - **対象**: `mcp-sandbox`（projectId=`6afccfe99a4b814c5a91c00d`）/ `Cluster0`
 - **結果**: `created=true`。事後一覧で1件、instanceType=`FREE`、provider=`AWS`、region=`AP_NORTHEAST_1`、state=`IDLE`、paused=`false`。
 - **Atlas側への変更**: 無料クラスター1件の作成のみ。既存プロジェクトの変更操作なし。
+- **作成成功時の事前条件（実測）**: 対象プロジェクト作成済み、対象プロジェクト内クラスター0件、MongoDB Atlas MCPで管理APIにアクセス可能。別プロジェクトには既存の無料クラスターがあった。
+- **指定引数（実測）**: `projectId=6afccfe99a4b814c5a91c00d`, `name=Cluster0`, `region=AP_NORTHEAST_1`。無料専用 `atlas_create_free_cluster` を使用（有料クラスター作成ツールは未使用）。
+- **確認方法**: 作成応答 `created=true`、作成後一覧 `FREE` / `AWS` / `AP_NORTHEAST_1` / `IDLE` / `paused=false`。
+- **成立条件の限界**: 1回の成功事例であり、クラスター数上限、無料枠・課金条件、組織ポリシー、実際の管理ロール、他リージョンの対応状況は未確認。事前のクラスター0件を一般的な必須要件とは断定しない。
 - **未検証**: DB接続、コレクション・ドキュメント参照。
 
 ## 新規Atlasプロジェクト作成（2026-11-18）
