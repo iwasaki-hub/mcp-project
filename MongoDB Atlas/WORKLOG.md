@@ -1,5 +1,16 @@
 # MongoDB Atlas 作業履歴
 
+## 2026-11-18 — sandbox IPアクセスリスト一時作成（全IPv4許可）
+
+- **ユーザー承認**: 検証目的で一時的に全IP許可を明示指定。
+- **対象**: `mcp-sandbox`（projectId=`6afccfe99a4b814c5a91c00d`）。アクセスリストはプロジェクト単位。
+- **事前確認**: `atlas_inspect_access_list` で0件、全IP許可エントリなし。
+- **作成**: `atlas_create_access_list` に `cidrBlocks=['0.0.0.0/0']`、comment=`Temporary MCP sandbox test - restrict ASAP` を指定。API応答成功。
+- **事後確認**: `atlas_inspect_access_list` で1件、`0.0.0.0/0` とコメントを確認。
+- **リスク**: すべてのIPv4送信元にネットワーク到達可能性を許す。DB認証は別途必要だが攻撃面が広がる。実際の接続成功・拒否は未検証。
+- **次の作業**: 検証後、許可元IPを限定するか当該エントリを削除。削除ツールの利用可否は別途確認。自動期限・自動削除は設定していない。
+
+
 ## 2026-11-18 — sandbox DBユーザー権限テスト（設定確認のみ）
 
 - **対象**: `mcp-sandbox` の `mcp_test_user`。
