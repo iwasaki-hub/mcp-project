@@ -1,0 +1,86 @@
+name: Validate GitHub Pages HTML
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - '.github/workflows/validate-pages.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - '.github/workflows/validate-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate static pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate HTML, local links and CSS
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlsplit, unquote
+          import sys
+
+          root = Path("docs").resolve()
+          pages = sorted(root.glob("*.html"))
+          errors = []
+          if not pages:
+              errors.append("No HTML pages found in docs/")
+          class Inspector(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.links = []
+                  self.ids = set()
+              def handle_starttag(self, tag, attrs):
+                  attrs = dict(attrs)
+                  if attrs.get("id"):
+                      self.ids.add(attrs["id"])
+                  for key in ("href", "src"):
+                      if attrs.get(key):
+                          self.links.append((tag, key, attrs[key]))
+          for page in pages:
+              inspector = Inspector()
+              try:
+                  inspector.feed(page.read_text(encoding="utf-8"))
+                  inspector.close()
+              except Exception as exc:
+                  errors.append(f"{page}: HTML parse error: {exc}")
+                  continue
+              for tag, attr, value in inspector.links:
+                  url = urlsplit(value)
+                  if url.scheme or url.netloc or value.startswith("//"):
+                      continue
+                  if url.path.startswith("/"):
+                      errors.append(f"{page}: root-relative URL not supported on project Pages: {value}")
+                      continue
+                  target = (page.parent / unquote(url.path)).resolve() if url.path else page
+                  if not target.is_relative_to(root):
+                      errors.append(f"{page}: link escapes docs/: {value}")
+                  elif not target.exists():
+                      errors.append(f"{page}: missing local target: {value}")
+                  elif url.fragment and target.suffix == ".html":
+                      other = Inspector()
+                      other.feed(target.read_text(encoding="utf-8"))
+                      if unquote(url.fragment) not in other.ids:
+                          errors.append(f"{page}: missing anchor: {value}")
+          if errors:
+              print("\n".join(errors), file=sys.stderr)
+              sys.exit(1)
+          print(f"Validated {len(pages)} HTML pages and their local links.")
+          PY

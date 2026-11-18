@@ -49,3 +49,13 @@
 - `docs/mongodb-atlas.html` のPC・モバイルナビゲーションにもSupabase・GitHubへのリンクを追加。
 - GitHub MCP `fetch_file` で4ページを再取得し、相互リンクとモバイルナビゲーションのHTMLを確認。
 - **未検証**: GitHub Pagesへの反映、公開URLの応答、実ブラウザの表示・遷移操作。
+
+## 2026-11-18 — GitHub Actions 自動検証ワークフロー導入（PR #1）
+
+- ブランチ `feature/pages-html-validation` を `main` から作成。
+- `.github/workflows/validate-pages.yml` を追加。PR・mainへのpush（`docs/**` 等に変更がある場合）と手動実行に対応。
+- `docs/*.html` のHTML解析、ローカルリンク、ページ内アンカー、CSS参照の存在、`docs/` 外へのパス逸脱を検査する。外部サイトへのアクセス・デプロイは行わない。
+- Actions権限は `contents: read` に限定。タイムアウト5分。
+- GitHub MCP `fetch_file` でワークフローファイルを再取得し存在を確認。
+- PR: https://github.com/iwasaki-hub/mcp-project/pull/1 （未マージ）。
+- **実行結果**: コミットに紐づくPRワークフロー一覧の取得では0件。成功・失敗の判定は**未確認**。Actions画面で実行状態を確認する必要がある。
