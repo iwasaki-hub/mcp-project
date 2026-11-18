@@ -52,3 +52,12 @@
 | 任意のRun検索・push実行一覧取得 | 現在の接続ツール | **未対応／未検証** | `fetch_commit_workflow_runs` はPRイベント限定。push実行の不存在は判定できない |
 
 - ログに `actions/checkout@v4` のNode.js 20非推奨警告あり。ワークフローの実行結果はsuccess。
+
+## Actions失敗検知・復旧検証（2026-11-18）
+
+| 機能 | 状態 | 根拠 |
+| --- | --- | --- |
+| 意図的な失敗の検知 | **成功** | PR #3のRun `44211810038` がfailure。欠損リンクとexit code 1をジョブログで確認 |
+| 失敗原因のログ特定 | **成功** | `fetch_workflow_job_logs` で欠損ファイル名を特定 |
+| 修正後の復旧確認 | **成功** | Run `44211952061`、Job `134492260228` がsuccess。HTML4ページの検証成功ログを取得 |
+| 失敗したRunの再実行 | **未検証** | `rerun_failed_workflow_run_jobs` は利用可能だが、修正後のコードを検証するには新規Runが適切 |
