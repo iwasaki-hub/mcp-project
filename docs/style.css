@@ -28,3 +28,7 @@ html{scroll-behavior:smooth;scroll-padding-top:96px}
 .record-links span{color:#287965;font-size:14px}
 .detail-note{color:#65777a;font-size:14px;line-height:1.8;margin-top:20px}
 @media(max-width:700px){.detail-hero{padding:42px 0 58px}.detail-section{padding:44px 0}.result-grid{grid-template-columns:1fr}.record-links a{align-items:flex-start;flex-direction:column;gap:6px}}
+
+/* GitHub Actions evidence links */
+.evidence-link{display:inline-block;color:#207866;font-weight:700;text-decoration:underline;text-underline-offset:4px;margin-top:8px}
+.evidence-link:hover{color:#145547}
