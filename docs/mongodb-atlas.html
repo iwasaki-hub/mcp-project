@@ -23,7 +23,7 @@
       <a class="back-link" href="./">← ホームに戻る</a>
       <p class="eyebrow">MCP VERIFICATION / DATABASE</p>
       <h1>MongoDB <em>Atlas</em></h1>
-      <p class="lead">MongoDB AtlasをMCPから操作し、プロジェクト管理・データ操作・アクセス制御の機能を検証した記録です。</p>
+      <p class="lead">2026年11月18日時点のGitHub検証記録に基づく、MongoDB Atlas MCPの実証結果です。現在は検証を停止しています。</p>
       <a class="primary" href="https://github.com/iwasaki-hub/mcp-project/tree/main/MongoDB%20Atlas">GitHubで詳細記録を見る ↗</a>
     </section>
     <section aria-labelledby="results-title" class="detail-section">
@@ -35,11 +35,35 @@
         <article class="result-card"><span class="status">検証成功</span><h3>DBユーザー・ネットワーク</h3><p>DBユーザーの作成・権限設定の確認と、IPアクセスリストへの登録を実施しました。</p></article>
       </div>
     </section>
+    <section class="detail-section" aria-labelledby="environment-title">
+      <p class="eyebrow">TEST ENVIRONMENTS / RECORDED 2026-11-18</p>
+      <h2 id="environment-title">対象環境と確認範囲</h2>
+      <div class="result-grid">
+        <article class="result-card"><span class="status">読み取り成功</span><h3>mcp-ai-practice</h3><p>既存のCluster0の詳細を確認。FREE、AWS東京、MongoDB 8.0.37、記録時IDLE。既存DBへの接続・コレクション参照は安全性確認待ちで未実施です。</p></article>
+        <article class="result-card"><span class="status">作成成功</span><h3>mcp-sandbox</h3><p>検証専用プロジェクトと無料Cluster0を作成。AWS東京、FREE、記録時IDLE。mcp_test_db / test_entriesを作成し存在を確認しました。</p></article>
+        <article class="result-card"><span class="status">検証成功</span><h3>テストデータのCRUD</h3><p>専用識別子を付けた1件を追加・読取・更新・削除。削除後の件数0を確認しました。作成したDBユーザー自身の認証試験とは別です。</p></article>
+      </div>
+    </section>
+    <section class="detail-section" aria-labelledby="capabilities-title">
+      <p class="eyebrow">CAPABILITIES / VERIFIED VS PENDING</p>
+      <h2 id="capabilities-title">MCP操作の検証状況</h2>
+      <div class="guide-table-wrap"><table class="guide-table"><thead><tr><th scope="col">機能</th><th scope="col">状態</th><th scope="col">確認内容・制約</th></tr></thead><tbody>
+        <tr><td>プロジェクト・クラスターの一覧と詳細</td><td>成功</td><td>既存プロジェクトの一覧・クラスター詳細を取得</td></tr>
+        <tr><td>検証用プロジェクト・無料クラスター作成</td><td>成功</td><td>mcp-sandbox / Cluster0、AWS東京</td></tr>
+        <tr><td>DB・コレクション作成と一覧</td><td>成功</td><td>検証用mcp_test_db / test_entries</td></tr>
+        <tr><td>ドキュメント追加・取得・更新・削除</td><td>成功</td><td>テスト1件、削除後0件</td></tr>
+        <tr><td>DBユーザー作成・権限設定の取得</td><td>成功</td><td>mcp_test_userに対象DBのreadWrite、Cluster0限定</td></tr>
+        <tr><td>DBユーザー自身のログイン・実効権限</td><td>未検証</td><td>他DBへのアクセス拒否も未検証</td></tr>
+        <tr><td>既存環境のDB接続・コレクション参照</td><td>安全性確認待ち</td><td>接続時の副作用・実効権限が未確認</td></tr>
+        <tr><td>条件検索・集計・アラート・定期確認</td><td>未検証</td><td>ツールの存在と実行成功を区別</td></tr>
+      </tbody></table></div>
+      <p class="detail-note">ここに記載した状態は2026年11月18日の検証記録です。現在のAtlasリソース状態を再取得した結果ではありません。</p>
+    </section>
     <section class="detail-section caution" aria-labelledby="security-title">
       <p class="eyebrow">SECURITY NOTE</p>
       <h2 id="security-title">セキュリティ上の注意</h2>
-      <p>検証用プロジェクトのIPアクセスリストには、一時的に全IPv4アドレスを許可する設定を追加しました。最後の検証記録時点では削除を確認していません。接続テスト終了後は、許可範囲を限定するか削除する必要があります。</p>
-      <p>また、作成したDBユーザー自身での認証・実効権限の検証は未実施です。</p>
+      <p>mcp-sandboxのIPアクセスリストに、2026年11月18日の検証で全IPv4を許可する0.0.0.0/0を追加しました。削除・制限した証跡は記録にありません。現在も有効かは未確認です。ネットワークの露出を広げる設定のため、再開時はまず読み取り専用で現状を確認し、必要な是正は承認後に行ってください。</p>
+      <p>DB認証は別途必要ですが、作成したDBユーザー自身での認証・実効権限・他DBへのアクセス拒否は未検証です。パスワードや接続文字列は公開しません。</p>
     </section>
     <section class="detail-section" aria-labelledby="records-title">
       <p class="eyebrow">SOURCE OF TRUTH</p><h2 id="records-title">検証ドキュメント</h2>
@@ -47,8 +71,9 @@
         <a href="https://github.com/iwasaki-hub/mcp-project/blob/main/MongoDB%20Atlas/README.md"><strong>README.md</strong><span>概要・現在の状況 ↗</span></a>
         <a href="https://github.com/iwasaki-hub/mcp-project/blob/main/MongoDB%20Atlas/WORKLOG.md"><strong>WORKLOG.md</strong><span>操作履歴・検証手順 ↗</span></a>
         <a href="https://github.com/iwasaki-hub/mcp-project/blob/main/MongoDB%20Atlas/CAPABILITIES.md"><strong>CAPABILITIES.md</strong><span>機能別の検証結果 ↗</span></a>
+        <a href="https://github.com/iwasaki-hub/mcp-project/blob/main/MongoDB%20Atlas/START_HERE_SEND_THIS_MESSAGE_TO_CHATGPT.md"><strong>START_HERE_SEND_THIS_MESSAGE_TO_CHATGPT.md</strong><span>次回の安全な再開手順 ↗</span></a>
       </div>
-      <p class="detail-note">このページは検証記録の概要です。最新の状態と詳細はGitHubの各ドキュメントをご確認ください。</p>
+      <p class="detail-note">このページはGitHubの検証記録を要約したものです。MongoDB Atlasの現況を示すリアルタイム画面ではありません。検証は停止中です。</p>
     </section>
   </main>
   <footer class="wrap footer"><span>© MCP Project</span><a href="./">ホームに戻る ↑</a></footer>
