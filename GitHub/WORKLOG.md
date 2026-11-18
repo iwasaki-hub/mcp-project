@@ -102,3 +102,11 @@
 - `docs/index.html` のGitHubカードを最新の検証結果に更新。`docs/style.css` に根拠リンクのスタイルを追加。
 - 成功と制約を区別して記載。PRリンクを根拠として掲載し、期限切れArtifactの直接ダウンロードは案内しない。
 - PRでHTML内部リンク検証を実行し、成功を確認してからSquashマージする。
+
+## 2026-11-18 — Issue → PR → CI → Squashマージ検証（Issue #8 / PR #9）
+
+- GitHub MCP `create_issue` で検証用Issue #8を作成（open）。
+- `create_branch` と `update_file` で専用ブランチからPagesに検証リンクを追加。
+- `create_pull_request` でPR #9を作成し、PR本文に `Closes #8` を指定。
+- PR head `f5850ae71166e4ef5b8175885cf9fe027ba17188` に紐づくActions Run `44217488602` は completed / success。
+- マージ後のIssue自動クローズはマージ後に別途実測する（記録時点では未確認）。
