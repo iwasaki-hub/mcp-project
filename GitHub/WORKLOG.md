@@ -33,3 +33,11 @@
 - `docs/style.css` にデスクトップ用リンク、モバイル用折りたたみメニュー、フォーカス表示、スクロール位置調整、動きの軽減設定を追加。
 - `main` にコミットし、MCP `fetch_file` でファイルを再取得。ナビゲーション要素・モバイルメニュー・セクションID・レスポンシブCSSの存在を確認。
 - **未検証**: 実ブラウザでの操作、GitHub Pagesの公開URLへの反映・表示。
+
+## 2026-11-18 — MongoDB Atlas専用ページとメニュー導線
+
+- `docs/mongodb-atlas.html` を新規作成。MongoDB AtlasのMCP検証概要、成功項目、未検証項目、セキュリティ注意、GitHub記録リンクを掲載。
+- `docs/index.html` のPC・モバイルナビゲーションに「MongoDB Atlas」を追加し、ホームのMongoDB Atlasカードから専用ページへ遷移するリンクを設置。
+- `docs/style.css` に専用ページのレスポンシブスタイルを追加。
+- **事後検証**: GitHub MCPで3ファイルを再取得し、リンク・ページ・スタイルの存在を確認。
+- **未検証**: GitHub Pagesでの実デプロイ、公開URLでのHTTP応答、ブラウザでの遷移操作。
