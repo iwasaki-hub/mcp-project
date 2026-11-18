@@ -59,3 +59,10 @@
 - GitHub MCP `fetch_file` でワークフローファイルを再取得し存在を確認。
 - PR: https://github.com/iwasaki-hub/mcp-project/pull/1 （未マージ）。
 - **実行結果**: コミットに紐づくPRワークフロー一覧の取得では0件。成功・失敗の判定は**未確認**。Actions画面で実行状態を確認する必要がある。
+
+## 2026-11-18 — Actions検証PR #1のマージ
+
+- PR #1 を `main` にSquashマージ。GitHub APIが `merged: true` を返却。
+- マージコミット: `71adafecc00ea38ede38b2ff2892c380143454a6`。
+- 事後検証: PR状態がmerged、`main` の `.github/workflows/validate-pages.yml` が取得できることを確認。
+- **未検証**: GitHub Actionsジョブの実際の成功・失敗。マージ成功はワークフロー実行成功を意味しない。
