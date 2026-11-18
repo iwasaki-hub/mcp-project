@@ -1,5 +1,10 @@
 # GitHub MCP 機能検証
 
+## 次回再開するときに最初に開くファイル
+
+**[START_HERE_SEND_THIS_MESSAGE_TO_CHATGPT.md](./START_HERE_SEND_THIS_MESSAGE_TO_CHATGPT.md)** — ここに書かれた一文をChatGPTへ最初にコピーして送信してください。送信するまでは検証停止中です。
+
+
 > **現在: 一時停止中（2026-11-18）。次回のChatGPTは最初に [HANDOFF.md](./HANDOFF.md) を必ず読むこと。**
 
 ## ChatGPTの読み取り順
