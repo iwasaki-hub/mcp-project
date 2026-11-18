@@ -32,3 +32,9 @@ html{scroll-behavior:smooth;scroll-padding-top:96px}
 /* GitHub Actions evidence links */
 .evidence-link{display:inline-block;color:#207866;font-weight:700;text-decoration:underline;text-underline-offset:4px;margin-top:8px}
 .evidence-link:hover{color:#145547}
+
+/* GitHub Actions YAML learning guide */
+.yaml-code{background:#172b31;color:#e8f3ef;border-radius:14px;padding:22px;overflow-x:auto;line-height:1.7;font-size:13px;white-space:pre;tab-size:2}
+.yaml-code code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.guide-table-wrap{overflow-x:auto}.guide-table{border-collapse:collapse;width:100%;background:#fff;border-radius:12px;overflow:hidden}.guide-table th,.guide-table td{text-align:left;padding:15px;border-bottom:1px solid #dce6e2;vertical-align:top}.guide-table th{background:#e4f3ed}.guide-examples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.guide-examples article{min-width:0}.guide-examples h3{font-size:17px}.guide-tips{line-height:2;color:#526b6d;padding-left:24px}.detail-section>p{line-height:1.9}
+@media(max-width:700px){.guide-examples{grid-template-columns:1fr}.yaml-code{padding:16px;font-size:12px}}
