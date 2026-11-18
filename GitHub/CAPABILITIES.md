@@ -72,3 +72,13 @@
 | Artifact内容照合 | ZIP展開 | **成功** | `artifact-mcp-test=ok` を確認 |
 
 - テストArtifactの保持期間は1日。MCP一覧取得は先頭ページのみ。
+
+## Issue・PRライフサイクル検証（2026-11-18）
+
+| 機能 | 状態 | 根拠 |
+| --- | --- | --- |
+| Issue作成 | **成功** | `create_issue` でIssue #8作成 |
+| Issue参照 | **成功** | Issue #8を作成後に参照可能 |
+| PR本文によるIssueクローズ指定 | **設定済み** | PR #9本文に `Closes #8` |
+| PRに紐づくCI検証 | **成功** | Run `44217488602` completed / success |
+| Squashマージ後のIssue自動クローズ | **マージ後確認** | マージ前には結果を断定しない |
