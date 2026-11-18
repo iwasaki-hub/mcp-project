@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="GitHub Actions YAMLの書き方を基本構造からイベント、jobs、steps、Artifactsまで学ぶ入門ガイド">
+<meta name="color-scheme" content="light"><title>GitHub Actions YAML入門 | MCP Project</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="header"><div class="wrap nav"><a class="brand" href="./">MCP <span>Project</span></a><nav class="desktop-links" aria-label="メインナビゲーション"><a href="./">ホーム</a><a href="./github.html">GitHub検証</a><a href="./actions-yaml.html" aria-current="page">YAML入門</a><a class="repo" href="https://github.com/iwasaki-hub/mcp-project">リポジトリ ↗</a></nav><details class="mobile-menu"><summary>メニュー ☰</summary><nav aria-label="モバイルナビゲーション"><a href="./">ホーム</a><a href="./github.html">GitHub検証</a><a href="./actions-yaml.html" aria-current="page">YAML入門</a></nav></details></div></header>
+<main class="wrap">
+<section class="detail-hero"><a class="back-link" href="./github.html">← GitHub検証に戻る</a><p class="eyebrow">GITHUB ACTIONS / LEARNING GUIDE</p><h1>GitHub Actions<br>YAML入門</h1><p class="lead">いつ、どの環境で、何を実行するか。実際のmcp-projectのワークフローを参考に、YAMLの基本を学びます。</p></section>
+<section class="detail-section" aria-labelledby="structure"><p class="eyebrow">01 / STRUCTURE</p><h2 id="structure">ファイルの場所と基本形</h2><p>ワークフローは <code>.github/workflows/test.yml</code> のような場所に保存します。</p><pre class="yaml-code"><code>name: My First Action
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get source code
+        uses: actions/checkout@v4
+      - name: Say hello
+        run: echo "Hello GitHub Actions!"</code></pre><p class="detail-note">この例はmainへのPush、mainを対象とするPRで実行されます。外部Actionのバージョンは実際の利用時に確認してください。</p></section>
+<section class="detail-section" aria-labelledby="keywords"><p class="eyebrow">02 / KEYWORDS</p><h2 id="keywords">重要なキーワード</h2><div class="guide-table-wrap"><table class="guide-table"><thead><tr><th>キーワード</th><th>役割</th></tr></thead><tbody><tr><td><code>name</code></td><td>Actions画面に表示する名前</td></tr><tr><td><code>on</code></td><td>実行のきっかけ</td></tr><tr><td><code>jobs</code></td><td>処理のまとまり</td></tr><tr><td><code>runs-on</code></td><td>Ubuntuなどの実行環境</td></tr><tr><td><code>steps</code></td><td>処理を実行する順序</td></tr><tr><td><code>uses</code></td><td>既存Actionを利用</td></tr><tr><td><code>run</code></td><td>シェルコマンドを実行</td></tr></tbody></table></div><p><code>uses</code> は既存のActionを呼び出し、<code>run</code> はコマンドを実行します。</p></section>
+<section class="detail-section" aria-labelledby="triggers"><p class="eyebrow">03 / TRIGGERS</p><h2 id="triggers">実行タイミングを指定する</h2><div class="guide-examples"><article><h3>PRで実行</h3><pre class="yaml-code"><code>on:
+  pull_request:
+    branches: [main]</code></pre></article><article><h3>mainへのPushで実行</h3><pre class="yaml-code"><code>on:
+  push:
+    branches: [main]</code></pre></article><article><h3>手動実行</h3><pre class="yaml-code"><code>on:
+  workflow_dispatch:</code></pre></article><article><h3>毎日定期実行</h3><pre class="yaml-code"><code>on:
+  schedule:
+    - cron: '0 0 * * *'</code></pre><p class="detail-note">UTC 00:00（日本時間9:00）の指定です。開始は遅延することがあります。</p></article></div></section>
+<section class="detail-section" aria-labelledby="practical"><p class="eyebrow">04 / PRACTICE</p><h2 id="practical">HTML確認とArtifact保存の例</h2><p>HTMLの存在をチェックして結果ファイルを保存する小さな例です。HTML構文や内部リンクの検証は行いません。</p><pre class="yaml-code"><code>name: Validate GitHub Pages
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Check HTML files
+        run: |
+          mkdir -p reports
+          if test -f docs/index.html; then
+            echo "HTML check passed" &gt; reports/result.txt
+          else
+            echo "HTML check failed" &gt; reports/result.txt
+            exit 1
+          fi
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-check-report
+          path: reports/result.txt
+          retention-days: 1</code></pre><p class="detail-note"><code>if: always()</code> は前のチェックが失敗してもアップロードを試みます。<code>retention-days: 1</code> は1日間の保持指定です。</p></section>
+<section class="detail-section" aria-labelledby="tips"><p class="eyebrow">05 / TIPS</p><h2 id="tips">書くときの注意</h2><ul class="guide-tips"><li>インデントはスペース（通常2つ）を使い、タブを使わない。</li><li><code>-</code> はリストの項目、<code>|</code> は複数行文字列を表す。</li><li>トークンやパスワードをYAMLに直接記載しない。</li><li><code>permissions</code> は必要最小限にする。</li><li>外部Actionのバージョンを確認し、本番ではコミットSHA固定も検討する。</li></ul></section>
+<section class="detail-section" aria-labelledby="examples"><p class="eyebrow">06 / REAL EXAMPLES</p><h2 id="examples">このリポジトリの実例</h2><div class="record-links"><a href="https://github.com/iwasaki-hub/mcp-project/blob/main/.github/workflows/validate-pages.yml"><strong>validate-pages.yml</strong><span>HTML・内部リンク検証 ↗</span></a><a href="https://github.com/iwasaki-hub/mcp-project/blob/main/.github/workflows/test-actions-artifact.yml"><strong>test-actions-artifact.yml</strong><span>Artifact保存・取得の検証 ↗</span></a><a href="https://docs.github.com/ja/actions/reference/workflows-and-actions/workflow-syntax"><strong>GitHub公式ドキュメント</strong><span>ワークフロー構文 ↗</span></a></div></section>
+</main><footer class="wrap footer"><span>© MCP Project</span><a href="./github.html">GitHub検証へ戻る ↑</a></footer>
+</body></html>
