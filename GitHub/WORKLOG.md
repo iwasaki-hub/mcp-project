@@ -86,3 +86,12 @@
 - **復旧操作**: 意図的に壊したリンクを削除。HTMLの無害なコメントのみ残し、再検証を試行。
 - **復旧後のActions実行結果**: Run `44211952061` / Job `134492260228` が completed / success。ログに `Validated 4 HTML pages and their local links.` を確認。
 - **安全方針**: CIが成功するまでPRをマージしない。失敗用リンクはPRの最終差分に残さない。
+
+## 2026-11-18 — Actions Artifact保存・MCP取得の実証（PR #4）
+
+- PR #4に検証専用ワークフロー `.github/workflows/test-actions-artifact.yml` を追加。PRイベントと手動実行に対応、`contents: read`、5分タイムアウト。
+- Actions Run `44212299127` は completed / success。
+- `actions/upload-artifact@v4` で `mcp-artifact-probe` を保存（Artifact ID `14386332605`、157 bytes、保持期間1日）。
+- GitHub MCP `fetch_workflow_run_artifacts` でArtifact一覧取得に成功。
+- GitHub MCP `download_workflow_artifact` でZIPダウンロードに成功。ZIP内の `result.txt` を展開・検証し、内容 `artifact-mcp-test=ok` を確認。
+- 制約: 一覧取得ツールは先頭ページのみ。保持期間経過後はダウンロード不可。実際のダウンロードは接続ツールとZIP検証によって確認。
