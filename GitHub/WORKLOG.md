@@ -77,3 +77,12 @@
 - **警告**: `actions/checkout@v4` のNode.js 20非推奨警告を確認。ジョブは成功。依存アクション更新は別タスクで検討。
 - **制約**: `fetch_commit_workflow_runs` はPRトリガーの実行に限定され、最初のページのみ返す。マージコミット `71adafecc00ea38ede38b2ff2892c380143454a6` への検索は0件だったが、push実行が存在しないという意味ではない。
 - **判定**: 実行結果・ジョブ・ステップ・ログ取得は**成功**。ログの公開先への転載は行わない。
+
+## 2026-11-18 — GitHub Actionsの意図的な失敗と復旧検証（PR #3）
+
+- **対象**: `iwasaki-hub/mcp-project`、検証用ブランチ `test/actions-failure-recovery`、PR #3。
+- **失敗の注入**: `docs/index.html` に一時的な存在しない相対リンク `./__ci_failure_probe_missing__.html` を追加。公開用 `main` は変更していない。
+- **失敗の確認**: Run `44211810038` / Job `134491777925` が completed / failure。ジョブログに `missing local target` と `exit code 1` を確認。
+- **復旧操作**: 意図的に壊したリンクを削除。HTMLの無害なコメントのみ残し、再検証を試行。
+- **復旧後のActions実行結果**: 確認中（成功と断定しない）。
+- **安全方針**: CIが成功するまでPRをマージしない。失敗用リンクはPRの最終差分に残さない。
