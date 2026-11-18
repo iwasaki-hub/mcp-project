@@ -10,10 +10,10 @@
 | Issue検索 | `search_issues` | 成功 | 0件 |
 | PR検索 | `search_prs` | 成功 | 0件 |
 | ファイル作成 | `create_file` | 成功 | GitHub検証記録ファイルを作成 |
-| ファイル更新 | `update_file` | 未検証 | 次の検証候補 |
-| ブランチ作成 | `create_branch` | 未検証 | sandboxブランチで実施予定 |
+| ファイル更新 | `update_file` | 成功 | 検証記録やWebファイルの更新を実施 |
+| ブランチ作成 | `create_branch` | 成功 | 検証用ブランチを作成 |
 | Issue作成・更新 | `create_issue` 等 | 未検証 | 明示承認後に実施 |
-| PR作成・レビュー・マージ | PR関連ツール | 未検証 | 明示承認後に実施 |
+| PR作成・Squashマージ | `create_pull_request`, `merge_pull_request` | 成功 | PR #1をSquashマージ。レビュー機能は未検証 |
 | ファイル削除 | `delete_file` | 未検証 | 検証用ファイルに限定 |
 
 ## 安全方針
@@ -40,3 +40,15 @@
 | Pagesデプロイ・公開URL確認 | **未検証** | ビルド状態、HTTP応答、ブラウザ表示は未確認 |
 
 - **注意**: 静的ファイルを配置できたことと、GitHub Pagesで公開できたことは別の検証項目。
+
+## GitHub Actions 実行結果・ログ取得（2026-11-18）
+
+| 機能 | MCPツール | 状態 | 実証結果 |
+| --- | --- | --- | --- |
+| コミットに紐づくワークフロー取得 | `fetch_commit_workflow_runs` | **成功（制約あり）** | PR headコミットから Run `44208727316`、completed / success を取得。PRトリガー限定・先頭ページのみ |
+| Run内のジョブ一覧取得 | `fetch_workflow_run_jobs` | **成功** | Job `134481315556`、completed / success |
+| ジョブのステップ取得 | `fetch_workflow_job_steps` | **成功** | 5ステップすべてsuccess |
+| ジョブログ本文取得 | `fetch_workflow_job_logs` | **成功** | 15,158文字のログとHTML4ページ検証成功メッセージを確認 |
+| 任意のRun検索・push実行一覧取得 | 現在の接続ツール | **未対応／未検証** | `fetch_commit_workflow_runs` はPRイベント限定。push実行の不存在は判定できない |
+
+- ログに `actions/checkout@v4` のNode.js 20非推奨警告あり。ワークフローの実行結果はsuccess。

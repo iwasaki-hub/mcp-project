@@ -66,3 +66,14 @@
 - マージコミット: `71adafecc00ea38ede38b2ff2892c380143454a6`。
 - 事後検証: PR状態がmerged、`main` の `.github/workflows/validate-pages.yml` が取得できることを確認。
 - **未検証**: GitHub Actionsジョブの実際の成功・失敗。マージ成功はワークフロー実行成功を意味しない。
+
+## 2026-11-18 — Actions実行結果・ジョブログ取得（MCP検証）
+
+- **対象**: `iwasaki-hub/mcp-project` / `Validate GitHub Pages HTML`。
+- **使用ツール**: `fetch_commit_workflow_runs`, `fetch_workflow_run_jobs`, `fetch_workflow_job_steps`, `fetch_workflow_job_logs`。
+- **取得結果**: PR headコミット `66ed0cc7b819bca7ea423ee361a6fb9ee572301a` に紐づく Run ID `44208727316`（completed / success）を取得。Job ID `134481315556`（Validate static pages、completed / success）を取得。
+- **ステップ検証**: 5ステップを取得し、すべて completed / success。
+- **ログ検証**: ジョブログ本文15,158文字を取得し、`Validated 4 HTML pages and their local links.` を確認。
+- **警告**: `actions/checkout@v4` のNode.js 20非推奨警告を確認。ジョブは成功。依存アクション更新は別タスクで検討。
+- **制約**: `fetch_commit_workflow_runs` はPRトリガーの実行に限定され、最初のページのみ返す。マージコミット `71adafecc00ea38ede38b2ff2892c380143454a6` への検索は0件だったが、push実行が存在しないという意味ではない。
+- **判定**: 実行結果・ジョブ・ステップ・ログ取得は**成功**。ログの公開先への転載は行わない。
