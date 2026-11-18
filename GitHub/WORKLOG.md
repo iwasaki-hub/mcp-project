@@ -118,3 +118,15 @@
 - `fetch_pr_comments` でConversationコメントとレビュー本文を再取得、`list_pull_request_reviews` でレビュー状態と本文を再取得。
 - PR #9のSquashマージ後、Issue #8は `closed / completed` に自動変更されたことを実測済み（前回の追記）。
 - 制約: `APPROVE` や `REQUEST_CHANGES`、インラインレビュー、レビュー依頼は未検証。自己承認は実施しない。
+
+## 2026-11-18 — PRインラインレビュー・返信・スレッド状態検証（PR #14）
+
+- `main` のHANDOFF/CAPABILITIES/WORKLOGを確認。開始時のopen PR検索は0件。
+- ブランチ `test/pr-inline-review-thread`、PR #14、検証用ページ `docs/review-thread-probe.html` を作成。
+- `add_review_to_pr` のCOMMENT + file_commentsで4行目にインラインコメント投稿。レビューID `5950061646`、親コメントID `4608571047`。
+- `list_pull_request_review_threads` でスレッドID `PRRT_kwDOVySUMM64wVpW`、初期 `is_resolved=false` を確認。
+- `reply_to_review_comment` で返信ID `4608571523`、スレッド一覧で返信本文を確認。
+- `resolve_review_thread` でtrue、`unresolve_review_thread` でfalseをそれぞれ再取得。検証終了時に再度解決。
+- 自己承認・変更要求・レビュー依頼は実施していない。
+- PR: https://github.com/iwasaki-hub/mcp-project/pull/14
+- CIとマージ結果は実測後に追記する。未確認の段階では成功と断定しない。
