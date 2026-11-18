@@ -1,0 +1,28 @@
+name: Test Actions Artifact Roundtrip
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/test-actions-artifact.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  artifact:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Create deterministic test report
+        run: |
+          mkdir -p artifact-report
+          printf 'artifact-mcp-test=ok\n' > artifact-report/result.txt
+          test "$(cat artifact-report/result.txt)" = "artifact-mcp-test=ok"
+      - name: Upload test artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcp-artifact-probe
+          path: artifact-report/result.txt
+          retention-days: 1
+          if-no-files-found: error

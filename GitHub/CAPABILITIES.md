@@ -61,3 +61,14 @@
 | 失敗原因のログ特定 | **成功** | `fetch_workflow_job_logs` で欠損ファイル名を特定 |
 | 修正後の復旧確認 | **成功** | Run `44211952061`、Job `134492260228` がsuccess。HTML4ページの検証成功ログを取得 |
 | 失敗したRunの再実行 | **未検証** | `rerun_failed_workflow_run_jobs` は利用可能だが、修正後のコードを検証するには新規Runが適切 |
+
+## GitHub Actions Artifacts保存・取得（2026-11-18）
+
+| 機能 | MCP/Actions | 状態 | 根拠 |
+| --- | --- | --- | --- |
+| Artifact生成・アップロード | `actions/upload-artifact@v4` | **成功** | PR #4 / Run `44212299127` (success) |
+| RunのArtifact一覧取得 | `fetch_workflow_run_artifacts` | **成功** | Artifact `14386332605`、`mcp-artifact-probe`、157 bytes、未期限切れ |
+| Artifact ZIP取得 | `download_workflow_artifact` | **成功** | ZIPを取得・展開し `result.txt` を確認 |
+| Artifact内容照合 | ZIP展開 | **成功** | `artifact-mcp-test=ok` を確認 |
+
+- テストArtifactの保持期間は1日。MCP一覧取得は先頭ページのみ。
