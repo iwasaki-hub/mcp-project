@@ -82,3 +82,14 @@
 | PR本文によるIssueクローズ指定 | **設定済み** | PR #9本文に `Closes #8` |
 | PRに紐づくCI検証 | **成功** | Run `44217488602` completed / success |
 | Squashマージ後のIssue自動クローズ | **マージ後確認** | マージ前には結果を断定しない |
+
+## PRコメント・レビュー検証（2026-11-18、PR #10）
+
+| 機能 | 状態 | 根拠 |
+| --- | --- | --- |
+| Conversationコメント作成 | **成功** | `add_comment_to_issue`、コメントID `6966634457` |
+| Conversationコメント再取得 | **成功** | `fetch_pr_comments` で本文を確認 |
+| COMMENTレビュー投稿 | **成功** | `add_review_to_pr`、レビューID `5949685491` |
+| レビュー一覧・状態取得 | **成功** | `list_pull_request_reviews`、`COMMENTED` |
+| 承認・変更要求・インラインレビュー | **未検証** | 自己承認や不要な変更要求を避けた |
+| Issue自動クローズ（前回検証） | **成功** | PR #9 Squashマージ後、Issue #8 `closed / completed` |

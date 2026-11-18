@@ -110,3 +110,11 @@
 - `create_pull_request` でPR #9を作成し、PR本文に `Closes #8` を指定。
 - PR head `f5850ae71166e4ef5b8175885cf9fe027ba17188` に紐づくActions Run `44217488602` は completed / success。
 - マージ後のIssue自動クローズはマージ後に別途実測する（記録時点では未確認）。
+
+## 2026-11-18 — PR Conversationコメント・レビュー操作（PR #10）
+
+- `add_comment_to_issue` でPR #10にConversationコメントを作成（ID `6966634457`）。
+- `add_review_to_pr` の `COMMENT` でレビュー投稿に成功（ID `5949685491`、state `COMMENTED`）。承認ではない。
+- `fetch_pr_comments` でConversationコメントとレビュー本文を再取得、`list_pull_request_reviews` でレビュー状態と本文を再取得。
+- PR #9のSquashマージ後、Issue #8は `closed / completed` に自動変更されたことを実測済み（前回の追記）。
+- 制約: `APPROVE` や `REQUEST_CHANGES`、インラインレビュー、レビュー依頼は未検証。自己承認は実施しない。
