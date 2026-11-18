@@ -1,5 +1,7 @@
 # Supabase × MCP 機能検証
 
+> **検証は一時停止中です。次回再開するときは、最初に [START_HERE_SEND_THIS_MESSAGE_TO_CHATGPT.md](./START_HERE_SEND_THIS_MESSAGE_TO_CHATGPT.md) を開き、記載の文章をChatGPTへ送信してください。**
+
 このフォルダでは、Supabase MCPの利用可能な機能、検証手順、実行結果、権限・セキュリティ上の注意点を記録します。
 
 ## 状態
