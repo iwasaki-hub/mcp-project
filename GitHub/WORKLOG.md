@@ -95,3 +95,10 @@
 - GitHub MCP `fetch_workflow_run_artifacts` でArtifact一覧取得に成功。
 - GitHub MCP `download_workflow_artifact` でZIPダウンロードに成功。ZIP内の `result.txt` を展開・検証し、内容 `artifact-mcp-test=ok` を確認。
 - 制約: 一覧取得ツールは先頭ページのみ。保持期間経過後はダウンロード不可。実際のダウンロードは接続ツールとZIP検証によって確認。
+
+## 2026-11-18 — GitHub PagesへActions検証結果を反映
+
+- `docs/github.html` にPR #1〜#4のGitHub Actions検証結果を掲載。ログ取得、意図的な失敗と復旧、Artifacts保存・MCP取得の実証を表示。
+- `docs/index.html` のGitHubカードを最新の検証結果に更新。`docs/style.css` に根拠リンクのスタイルを追加。
+- 成功と制約を区別して記載。PRリンクを根拠として掲載し、期限切れArtifactの直接ダウンロードは案内しない。
+- PRでHTML内部リンク検証を実行し、成功を確認してからSquashマージする。
