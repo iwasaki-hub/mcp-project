@@ -29,3 +29,14 @@
 | 新規リポジトリ作成 | **利用不可（現在の接続ツール）** | GitHub MCPツール一覧に `create_repository` 相当がなく、他の接続ツールにも直接作成操作が見つからなかった。GitHub Web UIからの手動作成は可能 |
 
 - `iwasaki-hub/mcp-github-sandbox` の取得は404（非存在またはアクセス不可）。作成は実施していない。
+
+## GitHub Pages 検証（2026-11-18）
+
+| 機能 | 状態 | 根拠 |
+| --- | --- | --- |
+| Pages用ファイル作成 | **成功** | `docs/index.html`、`docs/style.css`、`docs/.nojekyll` を `create_file` で作成 |
+| 作成ファイル再取得 | **成功** | `fetch_file` で3ファイルの存在を確認 |
+| Pages公開元の設定 | **未検証** | `main` / `/docs` の公開設定は未実施 |
+| Pagesデプロイ・公開URL確認 | **未検証** | ビルド状態、HTTP応答、ブラウザ表示は未確認 |
+
+- **注意**: 静的ファイルを配置できたことと、GitHub Pagesで公開できたことは別の検証項目。
