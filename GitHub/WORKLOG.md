@@ -26,3 +26,10 @@
 - **サイト内容**: MCPプロジェクト紹介、MongoDB Atlas・Supabase・GitHubの検証記録へのリンク、モバイル対応CSS。
 - **判定**: **ファイル作成・再取得は成功**。GitHub Pagesの設定（`main` の `/docs` を公開元にする操作）、ビルド・公開URLでのHTTP応答、実ブラウザ表示は**未検証**。公開成功とは扱わない。
 - **次の作業**: リポジトリの Settings → Pages で公開元を `main` / `/docs` に設定後、`https://iwasaki-hub.github.io/mcp-project/` の到達性と表示を確認する。
+
+## 2026-11-18 — GitHub Pages ナビゲーション追加
+
+- `docs/index.html` にホーム・検証対象・検証方針・GitHubへのナビゲーションを追加。
+- `docs/style.css` にデスクトップ用リンク、モバイル用折りたたみメニュー、フォーカス表示、スクロール位置調整、動きの軽減設定を追加。
+- `main` にコミットし、MCP `fetch_file` でファイルを再取得。ナビゲーション要素・モバイルメニュー・セクションID・レスポンシブCSSの存在を確認。
+- **未検証**: 実ブラウザでの操作、GitHub Pagesの公開URLへの反映・表示。
