@@ -17,3 +17,12 @@
 - **追加確認**: `iwasaki-hub/mcp-github-sandbox` の取得は404。非存在またはアクセス不可であり、作成成功を意味しない。
 - **代替手順**: GitHub Web UIで手動作成し、その後MCPで確認・操作する。
 - **変更**: リポジトリ新規作成操作は実行していない。
+
+## 2026-11-18 — GitHub Pages用静的サイトの準備検証
+
+- **対象**: `iwasaki-hub/mcp-project`、`main` ブランチの `/docs`。
+- **実施操作**: GitHub MCP `create_file` で `docs/index.html`、`docs/style.css`、`docs/.nojekyll` を作成。
+- **事後検証**: `fetch_file` で3ファイルすべてを再取得し、存在を確認（HTML 1938文字、CSS 2069文字、`.nojekyll` 0文字）。
+- **サイト内容**: MCPプロジェクト紹介、MongoDB Atlas・Supabase・GitHubの検証記録へのリンク、モバイル対応CSS。
+- **判定**: **ファイル作成・再取得は成功**。GitHub Pagesの設定（`main` の `/docs` を公開元にする操作）、ビルド・公開URLでのHTTP応答、実ブラウザ表示は**未検証**。公開成功とは扱わない。
+- **次の作業**: リポジトリの Settings → Pages で公開元を `main` / `/docs` に設定後、`https://iwasaki-hub.github.io/mcp-project/` の到達性と表示を確認する。
