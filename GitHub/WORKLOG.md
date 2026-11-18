@@ -84,5 +84,5 @@
 - **失敗の注入**: `docs/index.html` に一時的な存在しない相対リンク `./__ci_failure_probe_missing__.html` を追加。公開用 `main` は変更していない。
 - **失敗の確認**: Run `44211810038` / Job `134491777925` が completed / failure。ジョブログに `missing local target` と `exit code 1` を確認。
 - **復旧操作**: 意図的に壊したリンクを削除。HTMLの無害なコメントのみ残し、再検証を試行。
-- **復旧後のActions実行結果**: 確認中（成功と断定しない）。
+- **復旧後のActions実行結果**: Run `44211952061` / Job `134492260228` が completed / success。ログに `Validated 4 HTML pages and their local links.` を確認。
 - **安全方針**: CIが成功するまでPRをマージしない。失敗用リンクはPRの最終差分に残さない。
