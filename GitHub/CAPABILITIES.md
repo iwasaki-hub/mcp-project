@@ -93,3 +93,16 @@
 | レビュー一覧・状態取得 | **成功** | `list_pull_request_reviews`、`COMMENTED` |
 | 承認・変更要求・インラインレビュー | **未検証** | 自己承認や不要な変更要求を避けた |
 | Issue自動クローズ（前回検証） | **成功** | PR #9 Squashマージ後、Issue #8 `closed / completed` |
+
+## PRインラインレビュースレッド検証（2026-11-18、PR #14）
+
+| 機能 | 状態 | 実証結果 |
+| --- | --- | --- |
+| インラインレビューコメント | **成功** | `add_review_to_pr` の `COMMENT` + `file_comments` で `docs/review-thread-probe.html` 4行目に投稿。レビューID `5950061646`、コメントID `4608571047` |
+| レビュースレッド一覧 | **成功** | `list_pull_request_review_threads` でスレッド `PRRT_kwDOVySUMM64wVpW`、`is_resolved=false` を取得 |
+| インラインコメントへの返信 | **成功** | `reply_to_review_comment` で返信ID `4608571523` を作成し、スレッド内で再取得 |
+| スレッド解決 | **成功** | `resolve_review_thread` 後に `is_resolved=true` を再取得 |
+| スレッド再オープン | **成功** | `unresolve_review_thread` 後に `is_resolved=false` を再取得。検証終了時は再度解決 |
+| APPROVE / REQUEST_CHANGES / レビュー依頼 | **未検証** | 自己承認・不要な変更要求は行わない |
+
+- 根拠: https://github.com/iwasaki-hub/mcp-project/pull/14
