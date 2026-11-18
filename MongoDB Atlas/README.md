@@ -1,5 +1,7 @@
 # MongoDB Atlas × MCP 機能検証プロジェクト
 
+> **検証は一時停止中です。次回再開するときは、最初に [START_HERE_SEND_THIS_MESSAGE_TO_CHATGPT.md](./START_HERE_SEND_THIS_MESSAGE_TO_CHATGPT.md) を開き、記載の文章をChatGPTへ送信してください。**
+
 ## 目的
 
 ChatGPTからMCP経由でMongoDB Atlasと通信し、利用可能な操作、実際の検証結果、必要な権限、制約、注意点を継続的に調査・記録する。
