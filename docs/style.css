@@ -8,3 +8,23 @@ html{scroll-behavior:smooth;scroll-padding-top:96px}
 :focus-visible{outline:3px solid #2e8b78;outline-offset:4px}
 @media(max-width:700px){.desktop-links{display:none}.mobile-menu{display:block;position:relative}.mobile-menu summary{list-style:none;cursor:pointer;padding:10px 12px;border:1px solid #dce6e2;border-radius:10px;font-size:14px;font-weight:700}.mobile-menu summary::-webkit-details-marker{display:none}.mobile-menu summary span{margin-left:8px}.mobile-menu nav{position:absolute;right:0;top:calc(100% + 10px);width:min(260px,calc(100vw - 40px));display:flex;flex-direction:column;background:#fff;border:1px solid #dce6e2;border-radius:14px;box-shadow:0 12px 28px #182c311c;padding:8px}.mobile-menu nav a{padding:12px;border-radius:8px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* MongoDB Atlas detail page */
+.detail-hero{padding:64px 0 76px;border-bottom:1px solid #dce6e2}
+.back-link{display:inline-block;color:#287965;font-size:14px;font-weight:700;margin-bottom:38px}
+.detail-hero h1{font-size:clamp(42px,7vw,76px);letter-spacing:-.055em;line-height:1.18;margin:18px 0}
+.detail-hero h1 em{font-style:normal;color:#2e8b78}
+.detail-section{padding:60px 0;border-bottom:1px solid #dce6e2}
+.detail-section h2{font-size:clamp(26px,4vw,34px);letter-spacing:-.035em;margin:10px 0 28px}
+.result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.result-card{background:#fff;border:1px solid #e0e8e4;border-radius:18px;padding:26px}
+.result-card h3{font-size:20px;margin:20px 0 12px}
+.result-card p,.caution p{color:#607477;line-height:1.9}
+.status{display:inline-block;background:#e4f3ed;color:#24725f;border-radius:99px;padding:5px 12px;font-size:12px;font-weight:700}
+.caution{border-left:4px solid #cc9b4c;padding-left:24px}
+.record-links{display:grid;gap:12px}
+.record-links a{display:flex;justify-content:space-between;gap:20px;align-items:center;background:#fff;border:1px solid #e0e8e4;border-radius:12px;padding:20px}
+.record-links a:hover{border-color:#2e8b78}
+.record-links span{color:#287965;font-size:14px}
+.detail-note{color:#65777a;font-size:14px;line-height:1.8;margin-top:20px}
+@media(max-width:700px){.detail-hero{padding:42px 0 58px}.detail-section{padding:44px 0}.result-grid{grid-template-columns:1fr}.record-links a{align-items:flex-start;flex-direction:column;gap:6px}}
