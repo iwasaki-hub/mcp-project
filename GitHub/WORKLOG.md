@@ -41,3 +41,11 @@
 - `docs/style.css` に専用ページのレスポンシブスタイルを追加。
 - **事後検証**: GitHub MCPで3ファイルを再取得し、リンク・ページ・スタイルの存在を確認。
 - **未検証**: GitHub Pagesでの実デプロイ、公開URLでのHTTP応答、ブラウザでの遷移操作。
+
+## 2026-11-18 — Supabase・GitHub専用ページ追加
+
+- `docs/supabase.html` と `docs/github.html` を作成し、検証概要・結果・制約・GitHub記録へのリンクを掲載。
+- `docs/index.html` のPC・モバイルナビゲーションと各カードに専用ページへのリンクを追加。
+- `docs/mongodb-atlas.html` のPC・モバイルナビゲーションにもSupabase・GitHubへのリンクを追加。
+- GitHub MCP `fetch_file` で4ページを再取得し、相互リンクとモバイルナビゲーションのHTMLを確認。
+- **未検証**: GitHub Pagesへの反映、公開URLの応答、実ブラウザの表示・遷移操作。
